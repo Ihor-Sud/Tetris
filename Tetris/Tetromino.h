@@ -2,8 +2,6 @@
 #include <array>
 #include <unordered_map>
 
-
-
 struct Tetromino
 {
 	// tetromino --> geometric figure, consisting of FOUR interconnected squares
@@ -20,5 +18,14 @@ struct Tetromino
 		{ 'J', { 3, 5, 7, 6 } },
 		{ 'O', { 2, 3, 4, 5 } }
 	};
+
+	// this variable is needed to know if the tetramino appeared for the first time or not
+	bool is_first_appearance{ true };
+
+	// this variable is needed for horizontal movement of the tetramino
+	int horizontal_movement{ 0 };  
+
+	// this variable is needed for rotation of the tetramino
+	bool rotate{ false };
 };
 

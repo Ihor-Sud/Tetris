@@ -2,6 +2,6 @@
 
 struct Coordinates
 {
-	int m_x;
-	int m_y;
+	int axis_x{ 0 };
+	int axis_y{ 0 };
 };
