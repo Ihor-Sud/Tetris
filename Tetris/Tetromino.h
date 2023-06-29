@@ -1,31 +1,48 @@
 #pragma once
-#include <array>
-#include <unordered_map>
 
-struct Tetromino
+#include <array>
+#include "Coordinates.h"
+#include "Square.h" 
+
+
+class Tetromino
 {
+public:
+	Tetromino();
+	~Tetromino() = default;
+
+	void move_left();
+	void move_right();
+	void rotate();
+	void move_down();
+
+public:
+	// each tetromino type is visually similar to one of the letters:
+	enum Type : const uint16_t
+	{
+		I, S, Z, T, L, J, O,   COUNT = 7
+	};
+
 	// tetromino --> geometric figure, consisting of FOUR interconnected squares
 	static const int MAX_SQUARE_COUNT{ 4 };
 
-	// each tetromino type is visually similar to one of the letters:
-	std::unordered_map<char, std::array<int, 4> > m_type
-	{
-		{ 'I', { 1, 3, 5, 7 } },
-		{ 'S', { 2, 4, 5, 7 } },
-		{ 'Z', { 3, 5, 4, 6 } },
-		{ 'T', { 3, 5, 4, 7 } },
-		{ 'L', { 2, 3, 5, 7 } },
-		{ 'J', { 3, 5, 7, 6 } },
-		{ 'O', { 2, 3, 4, 5 } }
-	};
+public:
+	const std::array<uint16_t, Tetromino::MAX_SQUARE_COUNT>& operator[](const int index) const;
 
-	// this variable is needed to know if the tetramino appeared for the first time or not
-	bool is_first_appearance{ true };
+	// I set each square to its position and draw it
+	void set_and_draw(sf::RenderTarget& window, Type type); 
+	
+private:
+	// this variable store all types of tetromino
+	std::array<std::array<uint16_t, Tetromino::MAX_SQUARE_COUNT>, Type::COUNT> m_type;
 
-	// this variable is needed for horizontal movement of the tetramino
-	int horizontal_movement{ 0 };  
+	// this variable simulates the work of one single square of the tetromino
+	Square m_square{ 16.0f, 2.0f };
 
-	// this variable is needed for rotation of the tetramino
-	bool rotate{ false };
+	// this variable is needed to work with the coordinates of each individual square of the tetromino
+	std::array<Coordinates, Tetromino::MAX_SQUARE_COUNT> m_square_coordinates;
+
+	// this variable is needed in order to understand whether the tetromino appeared for the first time
+	bool m_is_first_appearance{ true }; 
 };
 
