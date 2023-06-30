@@ -16,7 +16,7 @@ void Tetromino::move_left()
 	// checking if the square of the tetromino goes beyond the boundaries of the game board
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
-		if (m_square_coordinates[square_num].get_axisX() <= 0)
+		if (m_square_coordinates[square_num].get_axisX() <= 0) 
 		{
 			return;
 		}
@@ -34,7 +34,7 @@ void Tetromino::move_right()
 	// checking if the square of the tetromino goes beyond the boundaries of the game board
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
-		if (m_square_coordinates[square_num].get_axisX() >= game_board.m_width)
+		if (m_square_coordinates[square_num].get_axisX() >= Game_Board::m_width)
 		{
 			return;
 		}
@@ -52,8 +52,8 @@ void Tetromino::rotate()
 	// checking if the square of the tetromino goes beyond the boundaries of the game board
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
-		if (	m_square_coordinates[square_num].get_axisY() >= game_board.m_height 
-			 ||	m_square_coordinates[square_num].get_axisX() >= game_board.m_width 
+		if (	m_square_coordinates[square_num].get_axisY() >= Game_Board::m_height
+			 ||	m_square_coordinates[square_num].get_axisX() >= Game_Board::m_width
 			 || m_square_coordinates[square_num].get_axisX() <= 0) 
 		{
 			return;
@@ -83,14 +83,14 @@ void Tetromino::rotate()
 	}
 }
 
-void Tetromino::move_down()
+bool Tetromino::move_down()
 {
 	// checking if the square of the tetromino goes beyond the boundaries of the game board
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
-		if (m_square_coordinates[square_num].get_axisY() >= game_board.m_height)
+		if (m_square_coordinates[square_num].get_axisY() >= Game_Board::m_height)
 		{
-			return;
+			return false;
 		}
 	}
 
@@ -99,6 +99,8 @@ void Tetromino::move_down()
 	{
 		m_square_coordinates[square_num].move_down();
 	}
+
+	return true;
 }
 
 void Tetromino::set_and_draw(sf::RenderTarget& window, Type type)

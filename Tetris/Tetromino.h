@@ -15,7 +15,7 @@ public:
 	void move_left();
 	void move_right();
 	void rotate();
-	void move_down();
+	bool move_down();
 
 public:
 	// each tetromino type is visually similar to one of the letters:
@@ -45,7 +45,5 @@ private:
 
 	// this variable is needed in order to understand whether the tetromino appeared for the first time
 	bool m_is_first_appearance{ true }; 
-
-	Game_Board game_board;
 };
 

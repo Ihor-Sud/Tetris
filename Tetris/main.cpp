@@ -9,7 +9,6 @@ int main()
 	// the game window size and its name
 	sf::RenderWindow tetris_window(sf::VideoMode(320, 480), "Tetris"); 
 
-
 	Tetromino tetromino;
 	sf::Clock clock; 
 
@@ -51,7 +50,14 @@ int main()
 		sf::Time elapsed_time = clock.getElapsedTime();  
 		if (elapsed_time.asSeconds() >= 0.3f) /* ... >= delay */ 
 		{
-			tetromino.move_down();
+			if (tetromino.move_down() == false)
+			{
+				Tetromino new_tetromino;
+
+				tetromino = new_tetromino;
+				Tetromino::Type type{ Tetromino::Type::Z }; 
+				tetromino.set_and_draw(tetris_window, type);
+			}
 
 			clock.restart();  
 		}
