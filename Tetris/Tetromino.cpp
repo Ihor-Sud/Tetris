@@ -13,6 +13,15 @@ Tetromino::Tetromino()
 
 void Tetromino::move_left()
 {
+	// checking if the square of the tetromino goes beyond the boundaries of the game board
+	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
+	{
+		if (m_square_coordinates[square_num].get_axisX() <= 0)
+		{
+			return;
+		}
+	}
+
 	// each square of the shape moves one pixel to the left
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
@@ -22,6 +31,15 @@ void Tetromino::move_left()
 
 void Tetromino::move_right()
 {
+	// checking if the square of the tetromino goes beyond the boundaries of the game board
+	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
+	{
+		if (m_square_coordinates[square_num].get_axisX() >= game_board.m_width)
+		{
+			return;
+		}
+	}
+
 	// each square of the tetramino moves one pixel to the right
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
@@ -31,6 +49,17 @@ void Tetromino::move_right()
 
 void Tetromino::rotate()
 {
+	// checking if the square of the tetromino goes beyond the boundaries of the game board
+	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
+	{
+		if (	m_square_coordinates[square_num].get_axisY() >= game_board.m_height 
+			 ||	m_square_coordinates[square_num].get_axisX() >= game_board.m_width 
+			 || m_square_coordinates[square_num].get_axisX() <= 0) 
+		{
+			return;
+		}
+	}
+
 	// I specify the center of rotation - coordinates of the SECOND square of the tetramino
 	int center_axisX = m_square_coordinates[1].get_axisX();
 	int center_axisY = m_square_coordinates[1].get_axisY();
@@ -56,10 +85,19 @@ void Tetromino::rotate()
 
 void Tetromino::move_down()
 {
+	// checking if the square of the tetromino goes beyond the boundaries of the game board
+	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
+	{
+		if (m_square_coordinates[square_num].get_axisY() >= game_board.m_height)
+		{
+			return;
+		}
+	}
+
 	// each square of the tetramino moves one pixel down
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
-		m_square_coordinates[square_num].move_down(); 
+		m_square_coordinates[square_num].move_down();
 	}
 }
 
@@ -76,7 +114,7 @@ void Tetromino::set_and_draw(sf::RenderTarget& window, Type type)
 
 		m_is_first_appearance = false;
 	}
-	
+
 
 	float real_size{ m_square.get_square_size() + m_square.get_outline_size() };
 
@@ -84,7 +122,7 @@ void Tetromino::set_and_draw(sf::RenderTarget& window, Type type)
 	for (uint16_t square_num = 0; square_num < Tetromino::MAX_SQUARE_COUNT; ++square_num)
 	{
 		m_square.set_position(m_square_coordinates[square_num].get_axisX() * real_size
-							, m_square_coordinates[square_num].get_axisY() * real_size);
+			, m_square_coordinates[square_num].get_axisY() * real_size);
 
 		m_square.draw(window);
 	}

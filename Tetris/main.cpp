@@ -7,7 +7,7 @@
 int main()
 {
 	// the game window size and its name
-	sf::RenderWindow tetris_window(sf::VideoMode(320, 480), "Tetris");
+	sf::RenderWindow tetris_window(sf::VideoMode(320, 480), "Tetris"); 
 
 
 	Tetromino tetromino;

@@ -3,6 +3,7 @@
 #include <array>
 #include "Coordinates.h"
 #include "Square.h" 
+#include "Game_Board.h"
 
 
 class Tetromino
@@ -44,5 +45,7 @@ private:
 
 	// this variable is needed in order to understand whether the tetromino appeared for the first time
 	bool m_is_first_appearance{ true }; 
+
+	Game_Board game_board;
 };
 

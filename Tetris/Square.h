@@ -4,7 +4,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 class Square
-{
+{ 
 public:
 	Square(const float square_size, const float outline_size);
 
